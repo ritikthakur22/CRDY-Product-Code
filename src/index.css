@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  @apply bg-[#0B0B1F] text-white;
+}

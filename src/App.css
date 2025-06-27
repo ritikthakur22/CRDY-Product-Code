@@ -1,0 +1,173 @@
+/* Basic body styling */
+body, #root {
+  background: linear-gradient(135deg, #0B0B1F 0%, #111133 100%);
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes glowShadow {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(0, 255, 150, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 255, 150, 1);
+  }
+}
+
+/* Utility animation classes */
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-fadeInDown {
+  animation: fadeInDown 0.6s ease forwards;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.animate-pulse {
+  animation: pulse 2.5s infinite;
+}
+
+/* Animation delays */
+.delay-150 {
+  animation-delay: 0.15s !important;
+}
+
+.delay-200 {
+  animation-delay: 0.2s !important;
+}
+
+.delay-300 {
+  animation-delay: 0.3s !important;
+}
+
+.delay-400 {
+  animation-delay: 0.4s !important;
+}
+
+.delay-600 {
+  animation-delay: 0.6s !important;
+}
+
+/* Ensure animation fill mode */
+[class*="delay-"] {
+  animation-fill-mode: forwards;
+}
+
+/* Pricing cards hover scale and smooth transition */
+.pricing-card {
+  transition: transform 0.3s ease;
+  cursor: default;
+}
+.pricing-card:hover {
+  transform: scale(1.05);
+}
+
+/* Preview image container */
+.preview-image {
+  position: relative;
+  border-radius: 1rem; /* rounded-2xl */
+  overflow: hidden;
+  border: 2px solid #22c55e; /* green-500 */
+  background: linear-gradient(to bottom right, #064e3b, #065f46, #064e3b); /* from-green-900 via-green-800 to-green-900 */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.6);
+  cursor: pointer;
+  transform-origin: center;
+  transition: transform 0.7s ease-in-out, box-shadow 0.7s ease-in-out;
+  animation-fill-mode: forwards;
+  animation-duration: 0.6s;
+  animation-timing-function: ease;
+}
+
+.preview-image:hover {
+  transform: scale(1.05);
+  animation: glowShadow 2s ease-in-out infinite;
+  box-shadow: 0 0 40px rgba(0, 255, 150, 0.9);
+}
+
+/* Glow background inside preview image container */
+.preview-image > .glow-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top right, #22c55e, #059669);
+  opacity: 0.2;
+  filter: blur(24px);
+  pointer-events: none;
+}
+
+/* Zoom effect on image inside preview */
+.img-zoom {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.7s ease-in-out;
+}
+
+.preview-image:hover .img-zoom {
+  transform: scale(1.15);
+}
+
+/* Preview label */
+.preview-label {
+  position: absolute;
+  top: 1.25rem; /* top-5 */
+  right: 1.25rem; /* right-5 */
+  background-color: #22c55e; /* green-400 */
+  color: black;
+  padding: 0.25rem 1.25rem; /* px-5 py-1 */
+  border-radius: 9999px; /* rounded-full */
+  font-weight: 600;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+  user-select: none;
+  animation: pulse 2.5s infinite;
+}
+
+/* Link hover effect */
+a:hover {
+  text-decoration-thickness: 3px;
+}
