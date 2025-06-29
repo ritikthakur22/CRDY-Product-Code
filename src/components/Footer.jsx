@@ -10,6 +10,7 @@ import { RiYoutubeLine } from "react-icons/ri"; // Remix Icons – clean and out
 import { RiDiscordLine } from "react-icons/ri"; // Remix Icons – modern and minimal
 import { MdOutlineCopyright } from "react-icons/md"; // Material Design – sleek and simple
 import { motion } from "framer-motion";
+import { FiGithub } from "react-icons/fi";
 
 export default function Footer() {
   return (
@@ -106,9 +107,9 @@ export default function Footer() {
                 href="https://github.com/a-adarsh1"
                 target="_blank"
                 rel="noreferrer"
-                className="text-green-400 font-semibold hover:underline"
+                className="text-green-600 font-semibold hover:underline"
               >
-                A-adarsh1
+                <FiGithub className="inline" /> A-adarsh1
               </a>
             </div>
           </div>
