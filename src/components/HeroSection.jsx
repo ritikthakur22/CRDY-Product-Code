@@ -82,7 +82,7 @@ export default function HeroSection() {
       >
         Precision. Power. Undetected. <br /> Your Game, Your Rules
       </motion.h1>
-      <p className="relative z-10 text-green-400 text-sm">Hack. Aim. Destroy.</p>
+      <p className="relative z-10 text-green-400 text-sm">Take full control</p>
     </motion.section>
   );
 }

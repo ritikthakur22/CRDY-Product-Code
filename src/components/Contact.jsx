@@ -5,29 +5,50 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
-
-import React from "react";
-import { FaDiscord, FaYoutube } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { RiYoutubeLine } from "react-icons/ri"; // Remix Icons – clean and outlined
+import { RiDiscordLine } from "react-icons/ri"; // Remix Icons – modern and minimal
+import { LuHeadphones } from "react-icons/lu"; // Lucide – clean and lightweight
 
-const cardVariants = {
-  hidden: { opacity: 0, scale: 0.9, y: 20 },
-  visible: (i) => ({
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { delay: 0.2 + i * 0.2, duration: 0.5, ease: "easeOut" },
-  }),
-};
-
-const logoVariants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut", delay: 0.3 },
+const platforms = [
+  {
+    name: "CRDY Gaming's",
+    description: "Discord community for all support & inquiries.",
+    icon: (
+      <div
+        style={{ backgroundColor: "#5865F2" }}
+        className="rounded-full p-3 inline-flex"
+      >
+        <RiDiscordLine className="text-5xl sm:text-6xl text-white" />
+      </div>
+    ),
+    href: "https://discord.gg/ZtVdDAMHfq",
+    glow: "0 0 25px rgba(88, 101, 242, 0.5)",
   },
-};
+  {
+    name: "CRDY Xits",
+    description: "YouTube channel for guides and updates.",
+    icon: (
+      <div className="bg-red-600 rounded-full p-3 inline-flex">
+        <RiYoutubeLine className="text-5xl sm:text-6xl text-white" />
+      </div>
+    ),
+    href: "https://www.youtube.com/@crdyxits",
+    glow: "0 0 25px rgba(255, 0, 0, 0.4)",
+  },
+  {
+    name: "Support",
+    description:
+      "24 hour available. Always available to clarify queries and provide guidance.",
+    icon: (
+      <div className="bg-green-500 rounded-full p-3 inline-flex">
+        <LuHeadphones className="text-5xl sm:text-6xl text-white" />
+      </div>
+    ),
+    href: "https://discord.gg/ZtVdDAMHfq",
+    glow: "0 0 25px rgba(0, 255, 180, 0.35)",
+  },
+];
 
 export default function Contact() {
   return (
@@ -37,77 +58,56 @@ export default function Contact() {
       viewport={{ once: true }}
       className="relative overflow-hidden bg-[#1B1B38] bg-opacity-80 backdrop-blur-md text-white py-10 px-4 mt-10 max-w-4xl mx-auto rounded-3xl shadow-lg"
     >
-      <motion.h2
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="text-3xl font-extrabold text-green-400 mb-4 text-center drop-shadow-lg"
+        className="text-center mb-6 relative"
       >
-        GET IN TOUCH
-      </motion.h2>
+        <h2
+          className="text-5xl font-bold text-white"
+          style={{ textShadow: "0 0 10px rgba(52,211,153,0.8)" }}
+        >
+          GET IN TOUCH
+        </h2>
+      </motion.div>
 
       <motion.p
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.2 }}
-        className="text-center text-base text-purple-300 max-w-xl mx-auto leading-relaxed mb-8"
+        className="text-center text-base text-purple-300 max-w-xl mx-auto leading-relaxed mb-12"
       >
-        Reach out for inquiries
-        <br />
-        and support
+        Reach out for inquiries and support
       </motion.p>
 
-      <div className="flex flex-col md:flex-row justify-around items-center gap-8 mb-8 flex-wrap">
-        {/* Discord */}
-        <motion.a
-          custom={0}
-          variants={cardVariants}
-          href="https://discord.gg/ZtVdDAMHfq"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex flex-col items-center text-center space-y-2 hover:text-white transition-colors"
-          whileHover={{
-            scale: 1.05,
-            boxShadow: "0 0 25px rgba(88, 101, 242, 0.5)",
-          }}
-        >
-          <motion.div variants={logoVariants}>
-            <FaDiscord className="text-5xl sm:text-6xl max-w-full" style={{ color: "#5865F2" }} />
-          </motion.div>
-          <h3 className="text-lg font-semibold text-white">CRDY Gaming's</h3>
-          <p className="text-purple-300 max-w-xs">
-            Discord community for all support & inquiries.
-          </p>
-        </motion.a>
-
-        {/* YouTube */}
-        <motion.a
-          custom={1}
-          variants={cardVariants}
-          href="https://www.youtube.com/@crdyxits"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex flex-col items-center text-center space-y-2 hover:text-white transition-colors"
-          whileHover={{
-            scale: 1.05,
-            boxShadow: "0 0 25px rgba(255, 0, 0, 0.4)",
-          }}
-        >
-          <motion.div variants={logoVariants}>
-            <FaYoutube className="text-5xl sm:text-6xl text-red-600 max-w-full" />
-          </motion.div>
-          <h3 className="text-lg font-semibold text-white">CRDY Xits</h3>
-          <p className="text-purple-300 max-w-xs">
-            YouTube channel for guides and updates.
-          </p>
-        </motion.a>
+      {/* cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {platforms.map((item, index) => (
+          <motion.a
+            key={index}
+            href={item.href || "#"}
+            target={item.href ? "_blank" : "_self"}
+            rel="noopener noreferrer"
+            whileHover={{
+              scale: 1.05,
+              boxShadow: item.glow,
+            }}
+            className="flex flex-col items-center text-center p-6 rounded-xl bg-white/5 backdrop-blur-md shadow-inner border border-white/10 transition duration-300 hover:text-white space-y-3 cursor-pointer"
+          >
+            {item.icon}
+            <h3 className="text-lg font-semibold text-white">{item.name}</h3>
+            <p className="text-sm text-purple-300">{item.description}</p>
+          </motion.a>
+        ))}
       </div>
 
+      {/* Availability Info */}
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
-        className="text-center max-w-xl mx-auto"
+        className="text-center max-w-xl mx-auto mt-10"
       >
         <h4 className="text-lg font-semibold text-green-400 mb-2">Hours</h4>
         <p className="text-purple-300 leading-relaxed text-sm">

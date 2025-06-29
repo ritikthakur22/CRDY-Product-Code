@@ -5,11 +5,20 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
-
 // FeatureCard.jsx
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { RiShieldLine } from "react-icons/ri";
+import { HiOutlineDeviceMobile } from "react-icons/hi"; // Heroicons – tall and minimal
+import { LuMonitor } from "react-icons/lu"; // Lucide – crisp lines, great for tech UIs
 
 export default function FeatureCard({ title, content, image, delay = 0 }) {
+  const navigate = useNavigate();
+
+  const onExploreClick = () => {
+    navigate("/product/bypass-emulator");
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -32,7 +41,7 @@ export default function FeatureCard({ title, content, image, delay = 0 }) {
           scale: { duration: 0.3 },
         },
       }}
-      className="h-full flex flex-col bg-[#1A1A2E] rounded-2xl p-6 text-center space-y-6 cursor-pointer overflow-hidden max-w-3xl w-full mx-auto"
+      className="h-full flex flex-col bg-[#1A1A2E] rounded-2xl p-6 space-y-4 text-center overflow-hidden max-w-3xl w-full mx-auto"
       style={{
         border: "1px solid rgba(255, 255, 255, 0.05)",
       }}
@@ -62,10 +71,60 @@ export default function FeatureCard({ title, content, image, delay = 0 }) {
         </div>
       )}
 
-      <div className="text-white font-semibold text-2xl">{title}</div>
+      <div className="text-green-400 font-semibold text-3xl text-center">
+        {title}
+      </div>
 
-      <div className="text-base text-gray-300 whitespace-pre-line text-left flex-grow leading-relaxed">
-        {content}
+      <div className="w-full h-[2px] bg-green-700 mx-auto my-1 rounded-full" />
+
+      <div className="space-y-3 text-center">
+        {/* First line stays plain */}
+        <div className="text-gray-200 text-base font-medium">
+          {content.split("\n")[0]}
+        </div>
+
+        {/* Remaining lines with different bg + icons */}
+        {content
+          .split("\n")
+          .slice(1)
+          .map((line, index) => {
+            const bgColors = [
+              "bg-[#243C58]", // 2nd line
+              "bg-[#2A2F7A]", // 3rd line
+              "bg-[#42267D]", // 4th line
+            ];
+
+            const icons = [
+              <RiShieldLine
+                key="shield"
+                className="text-white-300 text-xl mr-2"
+              />,
+              <HiOutlineDeviceMobile key="mobile" className="text-white-300 text-xl mr-2" />,
+              <LuMonitor key="monitor" className="text-white-300 text-xl mr-2" />,
+            ];
+
+            return (
+              <div
+                key={index}
+                className={`inline-flex items-center justify-center ${
+                  bgColors[index] || "bg-white/5"
+                } backdrop-blur-md rounded-xl px-6 py-6 text-sm text-gray-200 shadow-inner border border-white/10 mx-2 my-7`}
+              >
+                {icons[index]}
+                {line}
+              </div>
+            );
+          })}
+
+        {/* Button */}
+        <div className="text-center mt-12 z-10 relative">
+          <button
+            onClick={onExploreClick}
+            className="bg-green-500 hover:bg-green-400 text-black font-semibold px-6 py-3 rounded-xl shadow-md transition cursor-pointer"
+          >
+            Explore Now
+          </button>
+        </div>
       </div>
     </motion.div>
   );

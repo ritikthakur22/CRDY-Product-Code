@@ -97,7 +97,7 @@ export default function Navbar() {
           window.scrollTo({ top: 0, behavior: "smooth" });
           setIsOpen(false);
         }}
-        className="flex items-center space-x-2 cursor-pointer select-none"
+        className="flex items-center space-x-2 cursor-pointer select-none hover:scale-110 transition-transform duration-500 "
         title="CXP Home"
       >
         <img src={logo} alt="Logo" className="w-16 h-8 object-contain" />
