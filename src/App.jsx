@@ -8,6 +8,8 @@
 
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
@@ -82,41 +84,109 @@ export default function App() {
 
   const base = import.meta.env.BASE_URL.replace(/\/$/, ""); // e.g. "/crdy-product"
 
-  return (
-    <div className="relative min-h-screen font-sans bg-gradient-to-br from-[#0B0B1F] to-[#111133] overflow-x-hidden text-white">
-      <AnimatedBackground />
-      <Navbar activeSection={activeSection} />
-      <main>
-        <Routes>
-          {/* Redirect base path to /home */}
-          <Route
-            path={`${base}/`}
-            element={<Navigate to={`${base}/home`} replace />}
-          />
-          <Route
-            path={`${base}/home`}
-            element={<MainPage setActiveSection={setActiveSection} />}
-          />
-          <Route
-            path={`${base}/about`}
-            element={<MainPage setActiveSection={setActiveSection} />}
-          />
-          <Route
-            path={`${base}/product`}
-            element={<MainPage setActiveSection={setActiveSection} />}
-          />
-          <Route
-            path={`${base}/contact`}
-            element={<MainPage setActiveSection={setActiveSection} />}
-          />
-          <Route path="/product/bypass-emulator" element={<BypassEmulator />} />
-          <Route path={`/demo`} element={<DemoPage />} />
+  const [showContent, setShowContent] = useState(false)
+  useGSAP(() => {
+    const tl = gsap.timeline();
 
-          {/* Catch-all fallback */}
-          <Route path="*" element={<Navigate to={`${base}/home`} replace />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
+    tl.to('.vi-mask-group', {
+      rotate: 10,
+      duration: 2,
+      ease: 'power4.inOut',
+      transformOrigin: '50% 50%',
+    });
+
+    tl.to('.vi-mask-group', {
+      scale: 10,
+      duration: 2,
+      delay: -1.8,
+      ease: 'expo.inOut',
+      transformOrigin: '50% 50%',
+      opacity: 0,
+      onUpdate: function () {
+        if (this.progress() >= 0.9) {
+          document.querySelector('.svg')?.remove();
+          setShowContent(true);
+          this.kill(); // kills this tween
+        }
+      },
+    });
+  });
+
+  return (
+    <>
+      <div className="svg flex items-center justify-center fixed top-0 left-0 z-[100] w-full h-screen overflow-hidden bg-[#000]">
+        <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <mask id="viMask">
+              <rect width="100%" height="100%" fill="black" />
+              <g className="vi-mask-group">
+                <text
+                  x="50%"
+                  y="50%"
+                  fontSize="200"
+                  textAnchor="middle"
+                  fill="white"
+                  dominantBaseline="middle"
+                  fontFamily="Arial Black"
+                >
+                  CXP
+                </text>
+              </g>
+            </mask>
+          </defs>
+          <image
+            href="./bg.png"
+            width="100%"
+            height="100%"
+            preserveAspectRatio="xMidYMid slice"
+            mask="url(#viMask)"
+          />
+        </svg>
+      </div>
+
+      {showContent && (
+        <div
+        className={`relative min-h-screen font-sans bg-gradient-to-br from-[#0B0B1F] to-[#111133] overflow-x-hidden text-white transition-opacity duration-500 ${
+          showContent ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="relative min-h-screen font-sans bg-gradient-to-br from-[#0B0B1F] to-[#111133] overflow-x-hidden text-white">
+          <AnimatedBackground />
+          <Navbar activeSection={activeSection} />
+          <main>
+            <Routes>
+              {/* Redirect base path to /home */}
+              <Route
+                path={`${base}/`}
+                element={<Navigate to={`${base}/home`} replace />}
+              />
+              <Route
+                path={`${base}/home`}
+                element={<MainPage setActiveSection={setActiveSection} />}
+              />
+              <Route
+                path={`${base}/about`}
+                element={<MainPage setActiveSection={setActiveSection} />}
+              />
+              <Route
+                path={`${base}/product`}
+                element={<MainPage setActiveSection={setActiveSection} />}
+              />
+              <Route
+                path={`${base}/contact`}
+                element={<MainPage setActiveSection={setActiveSection} />}
+              />
+              <Route path="/product/bypass-emulator" element={<BypassEmulator />} />
+              <Route path={`/demo`} element={<DemoPage />} />
+
+              {/* Catch-all fallback */}
+              <Route path="*" element={<Navigate to={`${base}/home`} replace />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+        </div>
+      )}
+    </>
   );
 }
