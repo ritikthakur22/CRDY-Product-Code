@@ -5,7 +5,6 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
-
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGSAP } from "@gsap/react";
@@ -20,11 +19,11 @@ import AnimatedBackground from "./components/AnimatedBackground";
 import Contact from "./components/Contact";
 import BypassEmulator from "./pages/BypassEmulatorPage";
 import DemoPage from "./pages/WatchDemo";
+import "./App.css";
 
 function MainPage({ setActiveSection }) {
   useEffect(() => {
     const sections = ["home", "about", "product", "contact"];
-    const base = import.meta.env.BASE_URL.replace(/\/$/, ""); // e.g. "/crdy-product"
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -33,12 +32,8 @@ function MainPage({ setActiveSection }) {
             const id = entry.target.id;
             setActiveSection(id);
 
-            // Update URL with base and section, empty for home
-            window.history.replaceState(
-              null,
-              "",
-              `${base}/${id === "home" ? "" : id}`
-            );
+            // Clean path update
+            window.history.replaceState(null, "", `/${id === "home" ? "" : id}`);
           }
         });
       },
@@ -82,9 +77,7 @@ export default function App() {
     }
   }, [location]);
 
-  const base = import.meta.env.BASE_URL.replace(/\/$/, ""); // e.g. "/crdy-product"
-
-  const [showContent, setShowContent] = useState(false)
+  const [showContent, setShowContent] = useState(false);
   useGSAP(() => {
     const tl = gsap.timeline();
 
@@ -106,7 +99,7 @@ export default function App() {
         if (this.progress() >= 0.9) {
           document.querySelector('.svg')?.remove();
           setShowContent(true);
-          this.kill(); // kills this tween
+          this.kill();
         }
       },
     });
@@ -146,45 +139,27 @@ export default function App() {
 
       {showContent && (
         <div
-        className={`relative min-h-screen font-sans bg-gradient-to-br from-[#0B0B1F] to-[#111133] overflow-x-hidden text-white transition-opacity duration-500 ${
-          showContent ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="relative min-h-screen font-sans bg-gradient-to-br from-[#0B0B1F] to-[#111133] overflow-x-hidden text-white">
-          <AnimatedBackground />
-          <Navbar activeSection={activeSection} />
-          <main>
-            <Routes>
-              {/* Redirect base path to /home */}
-              <Route
-                path={`${base}/`}
-                element={<Navigate to={`${base}/home`} replace />}
-              />
-              <Route
-                path={`${base}/home`}
-                element={<MainPage setActiveSection={setActiveSection} />}
-              />
-              <Route
-                path={`${base}/about`}
-                element={<MainPage setActiveSection={setActiveSection} />}
-              />
-              <Route
-                path={`${base}/product`}
-                element={<MainPage setActiveSection={setActiveSection} />}
-              />
-              <Route
-                path={`${base}/contact`}
-                element={<MainPage setActiveSection={setActiveSection} />}
-              />
-              <Route path="/product/bypass-emulator" element={<BypassEmulator />} />
-              <Route path={`/demo`} element={<DemoPage />} />
-
-              {/* Catch-all fallback */}
-              <Route path="*" element={<Navigate to={`${base}/home`} replace />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
+          className={`relative min-h-screen font-sans bg-gradient-to-br from-[#0B0B1F] to-[#111133] overflow-x-hidden text-white transition-opacity duration-500 ${
+            showContent ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
+        >
+          <div className="relative min-h-screen font-sans bg-gradient-to-br from-[#0B0B1F] to-[#111133] overflow-x-hidden text-white">
+            <AnimatedBackground />
+            <Navbar activeSection={activeSection} />
+            <main>
+              <Routes>
+                <Route path="/" element={<Navigate to="/home" replace />} />
+                <Route path="/home" element={<MainPage setActiveSection={setActiveSection} />} />
+                <Route path="/about" element={<MainPage setActiveSection={setActiveSection} />} />
+                <Route path="/product" element={<MainPage setActiveSection={setActiveSection} />} />
+                <Route path="/contact" element={<MainPage setActiveSection={setActiveSection} />} />
+                <Route path="/product/bypass-emulator" element={<BypassEmulator />} />
+                <Route path="/demo" element={<DemoPage />} />
+                <Route path="*" element={<Navigate to="/home" replace />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
         </div>
       )}
     </>

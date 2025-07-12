@@ -8,7 +8,8 @@
 import FeatureCard from "./FeatureCard";
 import bypassBanner from "../images/bypass-banner.png";
 import { LuWrench } from "react-icons/lu"; // Lucide – clean and lightweight
-import { RiShieldLine } from "react-icons/ri"; // Remix Icons – simple and sharp
+
+
 export default function FeaturesGrid() {
 
 

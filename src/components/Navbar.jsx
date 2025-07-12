@@ -5,7 +5,6 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -29,18 +28,14 @@ export default function Navbar() {
     if (path.includes("/about")) setActiveSection("about");
     else if (path.includes("/product")) setActiveSection("product");
     else if (path.includes("/contact")) setActiveSection("contact");
-    else if (
-      path === "/" ||
-      path === "/crdy-product/" ||
-      path.includes("/home")
-    ) {
+    else if (path === "/" || path.includes("/home")) {
       setActiveSection("home");
     } else {
       setActiveSection("");
     }
 
     const onScroll = () => {
-      if (ignoreScroll) return; // ✅ Add this at the very beginning
+      if (ignoreScroll) return;
 
       for (let section of sections) {
         const el = document.getElementById(section);
@@ -48,9 +43,7 @@ export default function Navbar() {
         const rect = el.getBoundingClientRect();
         if (rect.top <= 100 && rect.bottom >= 100) {
           setActiveSection(section);
-          const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-          const newUrl = `${base}/${section}`;
-          window.history.replaceState(null, "", newUrl);
+          window.history.replaceState(null, "", `/${section}`);
           break;
         }
       }
@@ -64,21 +57,14 @@ export default function Navbar() {
     setIsOpen(false);
     setIgnoreScroll(true);
 
-    // Immediately set the section to avoid delay in UI
     setActiveSection(section);
+    navigate(`/${section}`);
 
-    // Navigate without base duplication
-    const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-    navigate(`${base}/${section}`);
-
-    // Wait for route + DOM update before scrolling
     setTimeout(() => {
       smoothScrollToId(section);
-
-      // Re-enable scroll detection after scroll settles
       setTimeout(() => {
         setIgnoreScroll(false);
-      }, 700); // Adjust timing if needed
+      }, 700);
     }, 50);
   };
 
@@ -91,13 +77,12 @@ export default function Navbar() {
     >
       <div
         onClick={() => {
-          const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-          navigate(`${base}`);
+          navigate(`/`);
           setActiveSection("home");
           window.scrollTo({ top: 0, behavior: "smooth" });
           setIsOpen(false);
         }}
-        className="flex items-center space-x-2 cursor-pointer select-none hover:scale-110 transition-transform duration-500 "
+        className="flex items-center space-x-2 cursor-pointer select-none hover:scale-110 transition-transform duration-500"
         title="CXP Home"
       >
         <img src={logo} alt="Logo" className="w-16 h-8 object-contain" />
