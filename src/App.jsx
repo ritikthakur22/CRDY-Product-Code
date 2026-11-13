@@ -33,7 +33,7 @@ function MainPage({ setActiveSection }) {
             setActiveSection(id);
 
             // Clean path update
-            window.history.replaceState(null, "", `/${id === "home" ? "" : id}`);
+            window.history.replaceState(null, "", `#/${id === "home" ? "home" : id}`);
           }
         });
       },
@@ -128,7 +128,7 @@ export default function App() {
             </mask>
           </defs>
           <image
-            href="./bg.png"
+            href={`${import.meta.env.BASE_URL}bg.png`}
             width="100%"
             height="100%"
             preserveAspectRatio="xMidYMid slice"

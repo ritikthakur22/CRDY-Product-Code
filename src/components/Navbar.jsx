@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from "../assets/CXP/Primary with transparent.png";
+import logo from "../assets/CXP/primary-logo.png";
 import { smoothScrollToId } from "../utils/smoothScroll";
 
 const sections = ["home", "about", "product", "contact"];
@@ -43,7 +43,7 @@ export default function Navbar() {
         const rect = el.getBoundingClientRect();
         if (rect.top <= 100 && rect.bottom >= 100) {
           setActiveSection(section);
-          window.history.replaceState(null, "", `/${section}`);
+          window.history.replaceState(null, "", `#/${section}`);
           break;
         }
       }

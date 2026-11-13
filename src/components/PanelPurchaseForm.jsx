@@ -21,7 +21,7 @@ export default function PanelPurchaseForm({
   const [email, setEmail] = useState("");
   const [txnId, setTxnId] = useState("");
   const [confirmed, setConfirmed] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
   const [modalStep, setModalStep] = useState("submitted");
@@ -31,12 +31,13 @@ export default function PanelPurchaseForm({
 
   const [emailFocused, setEmailFocused] = useState(false);
   const [txnFocused, setTxnFocused] = useState(false);
-  const [userIdFocused, setUserIdFocused] = useState(false);
-  const [passwordFocused, setPasswordFocused] = useState(false);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
     if (!confirmed) return alert("Please confirm the payment.");
+    setIsSubmitting(true);
 
     const mentionText =
       "Owner role: <@&1316778658228076554>\nMod role: <@&1347241343818268733>";
@@ -78,7 +79,7 @@ export default function PanelPurchaseForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(embed),
       });
-      setSubmitted(true);
+      
       setShowModal(true);
       setModalStep("submitted");
     } catch (err) {
@@ -124,7 +125,7 @@ export default function PanelPurchaseForm({
       setModalStep("success");
       setTimeout(() => {
         setShowModal(false);
-        setSubmitted(false);
+        
         setUserId("");
         setPassword("");
         setConfirmed(false);
@@ -227,7 +228,7 @@ export default function PanelPurchaseForm({
           </label>
 
           <div className="flex flex-wrap justify-center gap-8 max-w-3xl w-full mx-auto">
-            {Object.entries(qrImages).map(([method, qr], i) => {
+            {Object.keys(qrImages).map((method, i) => {
               const isSelected = paymentMethod === method;
 
               const iconMap = {
@@ -376,8 +377,6 @@ export default function PanelPurchaseForm({
                   placeholder="Enter ID"
                   value={userId}
                   onChange={(e) => setUserId(e.target.value)}
-                  onFocus={() => setUserIdFocused(true)}
-                  onBlur={() => setUserIdFocused(userId.length > 0)}
                   className="w-full mb-5 p-4 rounded-xl bg-[#1a1a33] border border-green-600 text-green-300 font-semibold focus:outline-none focus:ring-2 focus:ring-green-400 transition placeholder-transparent placeholder:text-green-400"
                 />
                 <input
@@ -385,8 +384,6 @@ export default function PanelPurchaseForm({
                   placeholder="Enter Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  onFocus={() => setPasswordFocused(true)}
-                  onBlur={() => setPasswordFocused(password.length > 0)}
                   className="w-full mb-8 p-4 rounded-xl bg-[#1a1a33] border border-green-600 text-green-300 font-semibold focus:outline-none focus:ring-2 focus:ring-green-400 transition placeholder-transparent placeholder:text-green-400"
                 />
                 <button

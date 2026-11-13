@@ -6,7 +6,7 @@
  */
 
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function PanelPurchaseForm({
   panelName,
@@ -21,7 +21,7 @@ export default function PanelPurchaseForm({
   const [email, setEmail] = useState("");
   const [txnId, setTxnId] = useState("");
   const [confirmed, setConfirmed] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
 
   // Modal states
   const [showModal, setShowModal] = useState(false);
@@ -52,7 +52,7 @@ export default function PanelPurchaseForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: JSON.stringify(data, null, 2) }),
       });
-      setSubmitted(true);
+      // submitted
       setShowModal(true);
       setModalStep("submitted");
       setFadeOut(false);
@@ -100,7 +100,7 @@ export default function PanelPurchaseForm({
       // After fade out animation, reset and close modal
       setTimeout(() => {
         setShowModal(false);
-        setSubmitted(false);
+        // submitted reset
         setUserId("");
         setPassword("");
         setConfirmed(false);

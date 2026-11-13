@@ -6,7 +6,7 @@
  */
 
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 
 export default function DemoPage() {
@@ -16,16 +16,19 @@ export default function DemoPage() {
 
   const base = import.meta.env.BASE_URL || "/";
 
-  const videos = [
-    {
-      src: `${base}videos/latest-bypass-emulator.mp4`,
-      title: "Bypass Emulator Latest",
-    },
-    {
-      src: `${base}videos/last-month-bypass-emulator.mp4`,
-      title: "Bypass Emulator Old",
-    },
-  ];
+  const videos = useMemo(
+    () => [
+      {
+        src: `${base}videos/latest-bypass-emulator.mp4`,
+        title: "Bypass Emulator Latest",
+      },
+      {
+        src: `${base}videos/last-month-bypass-emulator.mp4`,
+        title: "Bypass Emulator Old",
+      },
+    ],
+    [base]
+  );
 
   const videoRefs = useRef([]);
   const [rgbArray, setRgbArray] = useState(
@@ -55,7 +58,7 @@ export default function DemoPage() {
         cancelAnimationFrame(animationFrameRef.current);
       if (audioCtxRef.current) audioCtxRef.current.close();
     };
-  }, []);
+  }, [videos]);
 
   const onVideoPlay = (index) => {
     const audioCtx = audioCtxRef.current;
