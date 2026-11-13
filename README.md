@@ -175,4 +175,4 @@ This project is licensed under the Apache License 2.0. See the [LICENSE](./LICEN
 - **Discord Community:** [CRDY Gaming Discord](https://discord.gg/ZtVdDAMHfq)
 - **YouTube Channel:** [@crdyxits](https://www.youtube.com/@crdyxits)
 - **Developer:** [Ritik Thakur](https://github.com/ritikthakur22)
-- **Developer:** [Aadarsh Chaudhary](https://github.com/a-adarsh1)
+- **Website Developer:** [Aadarsh Chaudhary](https://github.com/a-adarsh1)
