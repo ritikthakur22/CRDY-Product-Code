@@ -6,7 +6,7 @@
  */
 
 import { motion } from "framer-motion";
-import aboutImg from "../images/AboutsectionImage.png";
+import aboutImg from "../assets/banners/AboutsectionImage.png";
 import { HiOutlineInformationCircle } from "react-icons/hi2";
 import { HiOutlineCheckCircle } from "react-icons/hi2";
 import { HiShieldCheck } from "react-icons/hi"; // Heroicons – bold with a checkmark

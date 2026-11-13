@@ -6,7 +6,7 @@
  */
 
 import FeatureCard from "./FeatureCard";
-import bypassBanner from "../images/bypass-banner.png";
+import bypassBanner from "../assets/banners/bypass-banner.png";
 import { LuWrench } from "react-icons/lu"; // Lucide – clean and lightweight
 
 

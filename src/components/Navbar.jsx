@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from "../assets/CXP/primary-logo.png";
+import logo from "../assets/branding/primary-logo.png";
 import { smoothScrollToId } from "../utils/smoothScroll";
 
 const sections = ["home", "about", "product", "contact"];

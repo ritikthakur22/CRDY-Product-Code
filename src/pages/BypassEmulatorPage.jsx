@@ -10,12 +10,12 @@ import { useEffect } from "react";
 import "../App.css";
 import PanelPurchaseForm from "../components/PanelPurchaseForm";
 
-import img1 from "../images/bypass-emulator-changes.png";
-import img2 from "../images/CXP-premium-bypass.png";
+import img1 from "../assets/banners/bypass-emulator-changes.png";
+import img2 from "../assets/banners/CXP-premium-bypass.png";
 
-import qrBinance from "../assets/private/bianance.png";
-import qrUpi from "../assets/private/upi.png";
-import qrGpay from "../assets/private/Gpay.png";
+import qrBinance from "../assets/payments/binance.png";
+import qrUpi from "../assets/payments/upi.png";
+import qrGpay from "../assets/payments/Gpay.png";
 
 export default function BypassEmulatorPage() {
   useEffect(() => {
